@@ -1,0 +1,26 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Create EC2 instance using Mapping.
+
+Mappings:
+  InstanceSize:
+    SMALL:
+      "Mac1" : "t2.micro"
+      "Mac2" : "t2.micro"
+    MEDIUM:
+      "Mac1" : "t2.medium"
+      "Mac2" : "t2.medium"
+    LARGE:
+      "Mac1" : "t2.large"
+      "Mac2" : "t2.large"
+
+Resources:
+  MyEC21:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-97785bed                                     # Replace with your Amazon Linux AMI ID
+      InstanceType: !FindInMap [InstanceSize, SMALL, Mac1]
+  MyEC22:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-97785bed                                     # Replace with your Amazon Linux AMI ID
+      InstanceType: !FindInMap [InstanceSize, SMALL, Mac2]

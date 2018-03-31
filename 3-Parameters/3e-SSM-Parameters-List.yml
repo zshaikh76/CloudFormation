@@ -1,0 +1,18 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Create EC2 instance using parameters.
+
+Parameters:
+  InstanceAmiId:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: myamiid
+  Mysgps:
+    Type: AWS::SSM::Parameter::Value<List<String>>
+    Default: psmysg
+
+Resources:
+  MyEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: !Ref InstanceAmiId
+      InstanceType: t2.micro
+      SecurityGroupIds: !Ref Mysgps

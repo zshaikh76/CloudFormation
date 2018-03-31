@@ -1,0 +1,20 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Create EC2 instance using parameters and condition.
+
+Parameters:
+  EC2KeyPair:
+    Type: String
+    Description: Name of an existing EC2 key pair
+
+Conditions:
+  keyAbsent:
+    !Equals [!Ref EC2KeyPair, ""]
+
+Resources:
+  MyEC2:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-97785bed                                   # Replace with your Amazon Linux AMI ID
+      InstanceType: t2.micro
+      KeyName: !Ref EC2KeyPair
+      #KeyName: !If [keyAbsent, !Ref "AWS::NoValue", !Ref EC2KeyPair]  #  "AWS::NoValue" is psudo parameter
